@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Guesser{
   private int low;
   private int high;
@@ -20,49 +22,37 @@ public class Guesser{
     System.out.println("Please answer T for true, and F for false.\n");
   }
 
-  /*
-   * Task 3. Complete the code for the getReply() method.
-   * In the current version below, it returns null each
-   * call, which is not what this method is supposed to do.
-   * 
-   * Instead, change the method so that it reads a reply
-   * from the player, and if it is "T" or "F", we have
-   * a valid reply. Return the String that you read from
-   * the player.
-   */
   private String getReply(){
-    String reply = null;
-    // Write code here which reads a String from the console.
-    // As long as it is not a valid reply (one of "T" and "F")
-    // write an error message, and read a new reply.
-    // When you have gotten a valid reply, return it.
+		String reply;
+		Scanner sc = new Scanner(System.in);
+		reply = sc.next();
+		while (!reply.equals("T") && !reply.equals("F")) {
+			System.out.println("Please only press [F] or [T]");
+			reply = sc.next();
+		}
     return reply;
   }
 
   private void doGuesses(){
-    int i=0; // number of guesses
+    int i=0;
     int middle=0;
     while(low<high){
-      // Set next guess to the middle between
-      // current low and current high
+
       middle=low + (high-low)/2;
 
       System.out.println("Is the number less than or equal to " +
                          middle + "?");
       String reply = getReply();
       if("T".equals(reply)){
-        // The number is less than or equal to middle
-        // so we move down high to middle
+
         high = middle;
       }else{
-        // The number is greater than middle,
-        // so we move up low to middle + 1
+
         low = middle + 1;
       }
-      i++; // One more guess!
+      i++;
     }
-    // When low has met high, we don't enter the loop
-    // and we have found the number
+
     answer(low, i);
   }
 
